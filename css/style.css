@@ -1,0 +1,28 @@
+#movies img , #movie img{
+	width: 100%;
+}
+
+.custom-spacing {
+	margin-left: 20px;
+}
+
+.well , .list-group-item, .jumbotron{
+	background: #222 !important;
+	border: none;
+	color: #999;
+}
+
+
+@media(min-width: 960px) {
+
+	#movies .col-md-3 .well {
+		height:400px;
+	}
+
+	#movies img{
+		height: 250px;
+	}
+	 #movie img {
+		height: 400px;
+	}
+}

@@ -1,0 +1,2 @@
+Install Live-Server: sudo npm install -g live-server
+Run Live-Server: live-server
