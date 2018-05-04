@@ -1,4 +1,4 @@
-# movie_info #
+# movie-info #
 Web App to find Movies info using OMDB API.
 
 ### What is this repository for? ###
