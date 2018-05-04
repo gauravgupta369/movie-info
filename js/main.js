@@ -11,21 +11,26 @@ function getMovies(searchText) {
 	axios.get('http://www.omdbapi.com/?apikey=de5fa9ef&s=' + searchText)
 	.then((response) => {
 		console.log(response);
-		var movies = response.data.Search;
-		var output = '';
-		$.each(movies, (index, movie) => {
-			output += `
-				<div class="col-md-3">
-					<div class="well text-center">
-						<img src="${movie.Poster}" />
-						<h4 class="text-center">${movie.Title}</h4>
-						<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-danger" href="#">More Info</a>
+		if (response.data.Response == 'True') {
+			var movies = response.data.Search;
+			var output = '';
+			$.each(movies, (index, movie) => {
+				output += `
+					<div class="col-md-3">
+						<div class="well text-center">
+							<img src="${movie.Poster}" />
+							<h4 class="text-center">${movie.Title}</h4>
+							<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-danger" href="#">More Info</a>
+						</div>
 					</div>
-				</div>
-			`;
-		})
-		$('#preloader').addClass('hidden');
-		$('#movies').html(output);
+				`;
+			})
+			$('#preloader').addClass('hidden');
+			$('#movies').html(output);
+		} else {
+			$('#preloader').addClass('hidden');
+			alert(response.data.Error);		
+		}
 	})
 	.catch((err) => {
 		console.log(err);
