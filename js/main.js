@@ -1,8 +1,3 @@
-/*
-$(document).ready(function() {
-	alert("1");
-});
-*/
 $(document).ready(() => {
 	$('#searchForm').on('submit', (e) => {
 		var searchText = $('#searchText').val();
@@ -12,7 +7,8 @@ $(document).ready(() => {
 });
 
 function getMovies(searchText) {
-	axios.get('http://www.omdbapi.com/?s=' + searchText)
+	$('#preloader').removeClass('hidden');
+	axios.get('http://www.omdbapi.com/?apikey=de5fa9ef&s=' + searchText)
 	.then((response) => {
 		console.log(response);
 		var movies = response.data.Search;
@@ -28,6 +24,7 @@ function getMovies(searchText) {
 				</div>
 			`;
 		})
+		$('#preloader').addClass('hidden');
 		$('#movies').html(output);
 	})
 	.catch((err) => {
@@ -37,14 +34,15 @@ function getMovies(searchText) {
 
 function movieSelected(id) {
 	sessionStorage.setItem('movieId' , id);
-	window.location = 'movie.html';
+	window.open('movie.html', '_blank');
 	return false;
 }
 
 function getMovie() {
 	var id = sessionStorage.getItem('movieId');
-	axios.get('http://www.omdbapi.com/?i=' + id)
+	axios.get('http://www.omdbapi.com/?apikey=de5fa9ef&i=' + id)
 	.then((response) => {
+		$('#movie').removeClass('hidden');
 		console.log(response);
 		var movie = response.data;
 		output = `
@@ -71,11 +69,11 @@ function getMovie() {
 					<h3 class="custom-spacing">Plot </h3> 
 					<p class="custom-spacing">${movie.Plot}</p>
 					<hr />
-					<a href="#" class="btn btn-danger custom-spacing">View</a>
 					<a href="index.html" class="btn btn-danger custom-spacing">Go back to search</a>
 				</div>
 			</div>
 		`;
+		$('#preloader').addClass('hidden');
 		$('#movie').html(output);
 	})
 	.catch((err) => {

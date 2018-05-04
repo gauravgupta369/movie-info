@@ -12,6 +12,10 @@
 	color: #999;
 }
 
+#preloader{
+	margin: 100px 46%;
+}
+
 
 @media(min-width: 960px) {
 
